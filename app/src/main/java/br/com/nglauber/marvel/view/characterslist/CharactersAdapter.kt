@@ -9,16 +9,17 @@ import br.com.nglauber.marvel.extensions.load
 import br.com.nglauber.marvel.model.api.entity.Character
 import kotlinx.android.synthetic.main.item_character.view.*
 
+
 class CharactersAdapter() : RecyclerView.Adapter<CharactersAdapter.VH>() {
 
     private val items = mutableListOf<Character>()
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_character, parent, false)
+    fun onCreateViewHolder(parent: ViewGroup? , viewType: Int): VH {
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_character , parent , false)
         return VH(view)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: VH , position: Int) {
         val character = items[position]
         holder.txtName.text = character.name
         holder.imgThumbnail.load("${character.thumbnail.path}/standard_medium.${character.thumbnail.extension}")
@@ -36,4 +37,5 @@ class CharactersAdapter() : RecyclerView.Adapter<CharactersAdapter.VH>() {
         items.addAll(characters)
         notifyDataSetChanged()
     }
+
 }

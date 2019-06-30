@@ -5,8 +5,9 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import br.com.nglauber.marvel.model.api.MarvelApi
 import br.com.nglauber.marvel.model.api.entity.Character
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ru.gildor.coroutines.retrofit.await
 
 class CharactersViewModel : ViewModel() {
@@ -27,8 +28,8 @@ class CharactersViewModel : ViewModel() {
         characters.value = emptyList()
     }
 
-    fun load(page: Int, param: (Any) -> Unit) {
-        launch(UI) {
+    fun load(page: Int) {
+        GlobalScope.launch(Dispatchers.Main) {
             isLoading = true
             if (page > currentPage) {
                 val result = MarvelApi.loadCharacters(page).await()
